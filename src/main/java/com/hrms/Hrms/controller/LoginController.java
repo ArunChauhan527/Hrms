@@ -35,7 +35,7 @@ public class LoginController {
 		  String username= request.get("username");if(username==null)username="";
 		  String password = request.get("password");if(password==null)password="";
 			
-		  if(!username.equalsIgnoreCase("")&&!password.equalsIgnoreCase(""))
+		  if(!username.equalsIgnoreCase("")||!password.equalsIgnoreCase(""))
 		  {
 			  response.put("message", "Username and password can't be empty");
 			  return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mapper.writeValueAsString(response));
@@ -43,7 +43,7 @@ public class LoginController {
 		  else 
 		  {
 			  
-			  return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mapper.writeValueAsString(login.getLogin(username, password)));
+			  return ResponseEntity.status(HttpStatus.OK).body(mapper.writeValueAsString(login.getLogin(username, password)));
 		  }
 			  
 			
