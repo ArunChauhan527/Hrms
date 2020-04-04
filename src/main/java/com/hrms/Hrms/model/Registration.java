@@ -3,14 +3,17 @@ package com.hrms.Hrms.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Registration")
+@Table(name="regestration")
 public class Registration {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int emp_code;
 	String DOB;
 	String personal_email_id;
