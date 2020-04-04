@@ -24,7 +24,7 @@ public class LoginController {
 	
 	
 	
-	@PostMapping(value="login")
+	@PostMapping(value="loginDB")
 	public ResponseEntity getlogin(@RequestBody String Data) throws JsonProcessingException
 	{
 		try{

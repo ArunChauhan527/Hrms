@@ -25,9 +25,9 @@ import com.amazonaws.services.s3.model.S3Object;
 @Service
 public class S3Implementation implements S3Storage {
 	
-	@Value("${accessKey}")
+	@Value("${accesskey}")
 	String accessKey;
-	@Value("${secretKey}")
+	@Value("${secretkey}")
 	String secretKey;
 
 	@Override
