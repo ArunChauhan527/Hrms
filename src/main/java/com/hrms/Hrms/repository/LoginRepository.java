@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hrms.Hrms.model.Registration;
 
 
+
 @Repository
 @Transactional
 public interface LoginRepository extends  JpaRepository<Registration, Integer>{
