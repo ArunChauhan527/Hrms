@@ -43,10 +43,10 @@ public class EmployeeConfigImp implements EmployeeConfig {
 	String clientId;
 	@Value("${clientSecret}")
 	String clientSecret;
-	@Value("${accessKey}")
+	@Value("${accesskey}")
 	String accessKey;
-	@Value("${secretKey}")
-	String secretKey;
+	@Value("${secretkey}")
+	 String secretKey;
 
 	
 	@Override
