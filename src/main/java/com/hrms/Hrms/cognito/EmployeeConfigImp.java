@@ -14,6 +14,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidentity.model.NotAuthorizedException;
@@ -42,11 +43,16 @@ public class EmployeeConfigImp implements EmployeeConfig {
 	String clientId;
 	@Value("${clientSecret}")
 	String clientSecret;
-	
+	@Value("${accesskey}")
+	String accessKey;
+	@Value("${secretkey}")
+	 String secretKey;
+
 	
 	@Override
 	public String Signup(String request) {
-		BasicAWSCredentials basicawsCreds = new BasicAWSCredentials("AKIAUSDAMTOVN4OBMON2", "hQSrY5RnV4v8E0QhwVeNaRdORhNESZMOnCJbhHX8");
+		AWSCredentials basicawsCreds = new BasicAWSCredentials(accessKey,
+				secretKey);
 		
 		@SuppressWarnings("deprecation")
 		AWSCognitoIdentityProviderClient client = new  AWSCognitoIdentityProviderClient(basicawsCreds).withRegion(Regions.AP_SOUTH_1);
@@ -101,7 +107,8 @@ public class EmployeeConfigImp implements EmployeeConfig {
 	@Override
 	public Map<String,Object> login(String request) throws JsonParseException, JsonMappingException, IOException {
 		// TODO Auto-generated method stub
-        BasicAWSCredentials basicawsCreds = new BasicAWSCredentials("AKIAUSDAMTOVN4OBMON2", "hQSrY5RnV4v8E0QhwVeNaRdORhNESZMOnCJbhHX8");
+		AWSCredentials basicawsCreds = new BasicAWSCredentials(accessKey,
+				secretKey);
 		@SuppressWarnings("deprecation")
 		AWSCognitoIdentityProviderClient client = new  AWSCognitoIdentityProviderClient(basicawsCreds).withRegion(Regions.AP_SOUTH_1);
 		Map<String,Object> param = new ObjectMapper().readValue(request,HashMap.class);
@@ -166,7 +173,8 @@ public class EmployeeConfigImp implements EmployeeConfig {
 	@Override
 	public String confirmEmail(String otp,String username) {
 	
-        BasicAWSCredentials basicawsCreds = new BasicAWSCredentials("AKIAUSDAMTOVN4OBMON2", "hQSrY5RnV4v8E0QhwVeNaRdORhNESZMOnCJbhHX8");
+		AWSCredentials basicawsCreds = new BasicAWSCredentials(accessKey,
+				secretKey);
 		
 		@SuppressWarnings("deprecation")
 		AWSCognitoIdentityProviderClient client = new  AWSCognitoIdentityProviderClient(basicawsCreds).withRegion(Regions.AP_SOUTH_1);
