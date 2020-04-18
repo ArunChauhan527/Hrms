@@ -14,12 +14,11 @@ public class LoginServiceImpl  implements LoginService{
 	
 	@Override
 	public Registration getLogin(String username, String password) {
-		// TODO Auto-generated method stub
 		Registration res =null;
 		try{
 			
 			 res = loginRepository.getLogin(username, password);
-			
+			 
 		}
 		catch (Exception e) {
 			// TODO: handle exception
@@ -28,6 +27,21 @@ public class LoginServiceImpl  implements LoginService{
 		
 		return res;
 	}
+
+	@Override
+	public String getRegister(Registration reg) {
+		
+		try {
+			
+			loginRepository.save(reg);
+			return "success";
+		}catch (Exception e) {
+			e.printStackTrace();
+             return e.getMessage();
+		}
+		
+	}
+	
 
 	
 	

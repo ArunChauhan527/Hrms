@@ -28,7 +28,7 @@ public class S3Implementation implements S3Storage {
 	@Value("${accesskey}")
 	String accessKey;
 	@Value("${secretkey}")
-	String secretKey;
+	 String secretKey;
 
 	@Override
 	public String readFromBucket(String bucketName, String fileName) {
