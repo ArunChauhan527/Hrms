@@ -40,9 +40,18 @@ public class LoginController {
 				response.put("message", "Username and password can't be empty");
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mapper.writeValueAsString(response));
 			} else {
-
+                       Registration resg =login.getLogin(username, password);
+                       String responseOut = mapper.writeValueAsString(login.getLogin(username, password));
+                       if(resg==null)
+                       {
+                    	   response.put("message","username or password is wrong");
+                    	   responseOut = mapper.writeValueAsString(response);
+                       }
+                       
+                       System.err.println(responseOut);
+                       
 				return ResponseEntity.status(HttpStatus.OK)
-						.body(mapper.writeValueAsString(login.getLogin(username, password)));
+						.body(responseOut);
 			}
 
 		} catch (Exception e) {
