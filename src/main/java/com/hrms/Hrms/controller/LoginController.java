@@ -1,6 +1,8 @@
 package com.hrms.Hrms.controller;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,10 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hrms.Hrms.model.Otp;
 import com.hrms.Hrms.model.Registration;
 import com.hrms.Hrms.service.LoginService;
 
@@ -88,4 +92,35 @@ public class LoginController {
 		}
 		
 	}
+	
+	@PostMapping("genrateOtp")
+	public ResponseEntity<HashMap<String,Object>> genrateOtp(@RequestParam("emailid")String emailid){
+		
+		try{
+			
+			Otp otp = new Otp();
+			otp.setCreatedDate(new Date());
+			otp.setStatus("created");
+			otp.setEmailid(emailid);
+			Random random = new Random();
+			
+			String id = String.format("%04d", random.nextInt(10000));
+			otp.setOtp(id);
+			
+			HashMap<String, Object> response = new HashMap<>();
+			response.put("otp", id);
+			return ResponseEntity.status(HttpStatus.OK).body(response);
+		}catch (Exception e) {
+			// TODO: handle exception
+			HashMap<String, Object> response = new HashMap<>();
+			response.put("message", e.getMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+		
+		
+		
+		
+	} 
 }
+
+
