@@ -58,6 +58,18 @@ public class Registration {
 	@NonNull
 	@NotBlank
 	String password;
+	@NonNull
+	@NotBlank
+	String industry;
+	
+	public String getIndustry() {
+		return industry;
+	}
+
+	public void setIndustry(String industry) {
+		this.industry = industry;
+	}
+
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	Date registration_date;

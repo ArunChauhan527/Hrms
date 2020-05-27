@@ -7,6 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name="otp")
@@ -17,7 +21,9 @@ public class Otp {
 	int sno;
 	
 	String otp;
-	Date createdDate;
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	Date created_date;
 	String status;
 	String emailid;
 	public String getEmailid() {
@@ -39,10 +45,10 @@ public class Otp {
 		this.otp = otp;
 	}
 	public Date getCreatedDate() {
-		return createdDate;
+		return created_date;
 	}
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
+	public void setCreatedDate(Date created_date) {
+		this.created_date = created_date;
 	}
 	public String getStatus() {
 		return status;
