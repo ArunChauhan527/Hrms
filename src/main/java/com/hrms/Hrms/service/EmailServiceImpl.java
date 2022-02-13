@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmailServiceImpl  {
   
-    @Autowired
-    public JavaMailSender emailSender;
+    //@Autowired
+   // public JavaMailSender emailSender;
  
     public void sendSimpleMessage(String to, String subject, String text) {
     	
@@ -19,7 +19,7 @@ public class EmailServiceImpl  {
         message.setTo(to); 
         message.setSubject(subject); 
         message.setText(text);
-        emailSender.send(message);
+      //  emailSender.send(message);
     	}catch (Exception e) {
 			// TODO: handle exception
     		e.printStackTrace();

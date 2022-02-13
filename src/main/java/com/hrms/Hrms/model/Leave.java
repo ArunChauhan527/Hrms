@@ -2,6 +2,7 @@ package com.hrms.Hrms.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +16,8 @@ public class Leave {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	Integer sno;
-	Integer emp_code;
+    @Column(name = "emp_code")	
+	Integer empCode;
 	String type;
 	String status;
     Date appliedon;
@@ -32,11 +34,12 @@ public class Leave {
 	public void setSno(Integer sno) {
 		this.sno = sno;
 	}
-	public Integer getEmp_code() {
-		return emp_code;
+	
+	public Integer getEmpCode() {
+		return empCode;
 	}
-	public void setEmp_code(Integer emp_code) {
-		this.emp_code = emp_code;
+	public void setEmpCode(Integer empCode) {
+		this.empCode = empCode;
 	}
 	public String getType() {
 		return type;

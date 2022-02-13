@@ -1,6 +1,5 @@
 package com.hrms.Hrms.controller;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -8,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hrms.Hrms.Dto.JwtRequest;
+import com.hrms.Hrms.Dto.JwtResponse;
+import com.hrms.Hrms.Dto.ResponseDto;
+import com.hrms.Hrms.config.JwtAuthenticationEntryPoint;
+import com.hrms.Hrms.config.JwtTokenUtil;
 import com.hrms.Hrms.model.Otp;
 import com.hrms.Hrms.model.Registration;
 import com.hrms.Hrms.service.EmailServiceImpl;
@@ -25,35 +31,43 @@ public class LoginController {
 
 	@Autowired
 	@Qualifier(value = "login")
-	LoginService login;
+	private LoginService login;
 	
 	@Autowired
-	EmailServiceImpl email;
+	private EmailServiceImpl email;
+	
+	@Autowired
+	private JwtAuthenticationEntryPoint jwtAuth;
+
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
+	
+	@Autowired
+	private UserDetailsService jwtInMemoryUserDetailsService;
+
 
 	@PostMapping(value = "loginDB")
-	public ResponseEntity getlogin(@RequestBody String Data) throws JsonProcessingException {
+	public ResponseEntity<?> getlogin(@RequestBody JwtRequest Data) throws JsonProcessingException {
 		try {
-			HashMap<String, String> response = new HashMap<>();
+			ResponseDto response = new ResponseDto();
 
-			ObjectMapper mapper = new ObjectMapper();
-			HashMap<String, String> request = mapper.readValue(Data, HashMap.class);
-			String username = request.get("username");
+			String username = Data.getUsername();
 			if (username == null)
 				username = "";
-			String password = request.get("password");
+			String password = Data.getPassword();
 			if (password == null)
 				password = "";
 
 			if (username.equalsIgnoreCase("") || password.equalsIgnoreCase("")) {
-				response.put("message", "Username and password can't be empty");
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mapper.writeValueAsString(response));
+				response.setMessage("Username and password can't be empty");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 			} else {
 
-				String result = mapper.writeValueAsString(login.getLogin(username, password));
-				if(result==null || result.equalsIgnoreCase("null"))
+				Registration result = login.getLogin(username, password);
+				if(result==null)
 				{
-					response.put("message", "Username and password is incorrect");
-					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mapper.writeValueAsString(response));
+					response.setMessage("Username and password is incorrect");
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 				}
 				else
 				{
@@ -74,35 +88,30 @@ public class LoginController {
 	}
 
 	@PostMapping(value = "register")
-	public ResponseEntity resgister(@RequestBody String data) throws JsonProcessingException {
-		HashMap<String, Object> regis = new HashMap<>();
-
-		ObjectMapper mapper = new ObjectMapper();
+	public ResponseEntity<ResponseDto> resgister(@RequestBody Registration data) throws JsonProcessingException {
+		ResponseDto regis = new ResponseDto();
 
 		try {
 			
-			Registration res = mapper.readValue(data, Registration.class);
-			
-			
-			String msg = login.getRegister(res);
+			String msg = login.getRegister(data);
 			
 			if(msg.equalsIgnoreCase("success"))
 			{
-				regis.put("message", "Saved successfully");
-				return ResponseEntity.status(HttpStatus.OK).body(mapper.writeValueAsString(regis));
+				regis.setMessage("Saved successfully");
+				return ResponseEntity.status(HttpStatus.OK).body(regis);
 			}
 			else
 			{
 				
-				regis.put("message", msg);
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mapper.writeValueAsString(regis));
+				regis.setMessage(msg);
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(regis);
 			}
 
 		} catch (Exception e)
 		{
 			e.printStackTrace();
-			regis.put("message",e.getMessage());
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mapper.writeValueAsString(regis));
+			regis.setMessage(e.getMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(regis);
 		}
 		
 	}
@@ -156,6 +165,7 @@ public class LoginController {
 		
 	} 
 	
+	@SuppressWarnings("unchecked")
 	@PostMapping("otpChangePassword")
 	public ResponseEntity<HashMap<String,Object>> otpChangePassword(@RequestBody String req){
 		
@@ -185,6 +195,19 @@ public class LoginController {
 		
 		
 	} 
+	
+	
+	@PostMapping("/getToken")
+	public ResponseEntity<JwtResponse> getLogin(@RequestBody JwtRequest authenticationRequest) throws Exception {
+	
+		jwtAuth.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+		final UserDetails userDetails = jwtInMemoryUserDetailsService
+				.loadUserByUsername(authenticationRequest.getUsername());
+
+		final String token = jwtTokenUtil.generateToken(userDetails);
+
+		return ResponseEntity.ok(new JwtResponse(token));
+	}
 	
 	
 	

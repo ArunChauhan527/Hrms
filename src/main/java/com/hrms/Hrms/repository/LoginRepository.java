@@ -15,12 +15,14 @@ import com.hrms.Hrms.model.Registration;
 @Transactional
 public interface LoginRepository extends  JpaRepository<Registration, Integer>{
 
-	@Query("Select e from Registration e where e.user_name=?1 and e.password=?2")
+	@Query("Select e from Registration e where e.userName=?1 and e.password=?2")
 	Registration getLogin(String username,String password);
 	
     @Modifying
 	@Query("Update  Registration set password=:password where offical_email_id=:emailid")
 	void changePassword(@Param("password")String password,@Param("emailid")String emailid);
+    
+    Registration findByUserName(@Param("userName") String userName);
 	
 	
 }

@@ -2,6 +2,7 @@ package com.hrms.Hrms.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,10 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Null;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.lang.NonNull;
 
 @Entity
@@ -54,7 +53,8 @@ public class Registration {
     Double aadharcardno;
 	@NonNull
 	@NotBlank
-	String user_name;
+	@Column(name = "user_name")
+	String userName;
 	@NonNull
 	@NotBlank
 	String password;
@@ -172,12 +172,12 @@ public class Registration {
 		this.aadharcardno = aadharcardno;
 	}
 
-	public String getUser_name() {
-		return user_name;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {

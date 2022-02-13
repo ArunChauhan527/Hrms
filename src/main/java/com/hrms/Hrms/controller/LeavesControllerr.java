@@ -1,8 +1,6 @@
 package com.hrms.Hrms.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,7 +21,7 @@ public class LeavesControllerr {
 	LeaveService leave;
 	
 	@PostMapping("adminLeave")
-	public ResponseEntity adminLeaves(@RequestParam("company") String company)
+	public ResponseEntity<?> adminLeaves(@RequestParam("company") String company)
 	{
 		try{
 			HashMap<String, Object> response = new HashMap<>();
@@ -66,9 +64,8 @@ public class LeavesControllerr {
 		
 	}
 	
-	@SuppressWarnings("unused")
 	@PostMapping("leavesCount")
-	public ResponseEntity leaveCount(@RequestParam("empId")Integer empId,@RequestParam("industry")String industry)
+	public ResponseEntity<?> leaveCount(@RequestParam("empId")Integer empId,@RequestParam("industry")String industry)
 	{
 		try{
 			HashMap<Object, Object> response1 = new HashMap<>();

@@ -1,8 +1,13 @@
 package com.hrms.Hrms.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.hrms.Hrms.model.Otp;
@@ -11,7 +16,7 @@ import com.hrms.Hrms.repository.LoginRepository;
 import com.hrms.Hrms.repository.OtpRepository;
 
 @Service(value="login")
-public class LoginServiceImpl  implements LoginService{
+public class LoginServiceImpl  implements LoginService, UserDetailsService{
 
 	@Autowired
 	LoginRepository loginRepository;
@@ -83,6 +88,19 @@ public class LoginServiceImpl  implements LoginService{
 		}
 		
 		
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Registration users  = loginRepository.findByUserName(username);
+		if(users!=null)
+		{
+			return new User(users.getUserName(), users.getPassword(), new ArrayList<>());
+		}
+		else
+		{
+		 throw new UsernameNotFoundException(username +" is not present");
+		}
 	}
 	
 
