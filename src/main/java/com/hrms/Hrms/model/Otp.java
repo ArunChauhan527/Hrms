@@ -12,8 +12,11 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import lombok.Data;
+
 @Entity
 @Table(name="otp")
+@Data
 public class Otp {
 
 	@Id
@@ -26,36 +29,6 @@ public class Otp {
 	Date created_date;
 	String status;
 	String emailid;
-	public String getEmailid() {
-		return emailid;
-	}
-	public void setEmailid(String emailid) {
-		this.emailid = emailid;
-	}
-	public int getSno() {
-		return sno;
-	}
-	public void setSno(int sno) {
-		this.sno = sno;
-	}
-	public String getOtp() {
-		return otp;
-	}
-	public void setOtp(String otp) {
-		this.otp = otp;
-	}
-	public Date getCreatedDate() {
-		return created_date;
-	}
-	public void setCreatedDate(Date created_date) {
-		this.created_date = created_date;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
 	
 	
 }
