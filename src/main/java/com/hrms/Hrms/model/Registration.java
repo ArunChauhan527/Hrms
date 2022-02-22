@@ -10,13 +10,15 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.lang.NonNull;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "regestration")
-@Data@Getter@Setter
+@Data@Getter@Setter@AllArgsConstructor@NoArgsConstructor
 public class Registration {
 
 	@Id

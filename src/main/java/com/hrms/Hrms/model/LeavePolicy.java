@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table( name = "leavePloicy")
+@Table( name = "leavePolicy")
 @Data
 public class LeavePolicy {
 

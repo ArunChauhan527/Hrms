@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +27,7 @@ import com.hrms.Hrms.model.Registration;
 import com.hrms.Hrms.service.EmailServiceImpl;
 import com.hrms.Hrms.service.LoginService;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class LoginController {
 
