@@ -3,13 +3,13 @@ package com.hrms.Hrms.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.hrms.Hrms.Dto.LeaveCount;
 import com.hrms.Hrms.model.Admin;
+import com.hrms.Hrms.model.Leave;
 
 public interface LeaveService {
-
-	
-	Admin leaveploicy(String company);
-	
-   HashMap<Object, Object> levesCount(Integer empId,String industry);
-	
+   LeaveCount leavesCount(Integer empId, String industry);
+	List<Leave> findByEmpCodeAndIndustry(Integer empCode, String industry);
+    List<Leave> saveAll(List<Leave> model);
+    Leave save(Leave model);
 }

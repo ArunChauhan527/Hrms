@@ -12,5 +12,6 @@ public interface LeavePolicyRepository extends JpaRepository<LeavePolicy, Intege
 
 	
 	List<LeavePolicy> findByIndustry(String industry);
+
 	
 }

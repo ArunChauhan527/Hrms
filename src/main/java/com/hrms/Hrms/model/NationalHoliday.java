@@ -2,25 +2,26 @@ package com.hrms.Hrms.model;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="national_holiday")
-@Data
+@Data@NoArgsConstructor@AllArgsConstructor
 public class NationalHoliday {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int sno;
 	String holiday;
-	Date occured_date;
+	@Column(name = "occured_date")
+	Date occuredDate;
 	String region;
 	String department;
+	String company;
+	String industry;
 	
 }

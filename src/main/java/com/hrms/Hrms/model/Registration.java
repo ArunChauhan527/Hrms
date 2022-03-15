@@ -16,6 +16,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Entity
 @Table(name = "regestration")
 @Data@Getter@Setter@AllArgsConstructor@NoArgsConstructor
@@ -23,45 +26,48 @@ public class Registration {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int emp_code;
+	private int emp_code;
 	@NonNull
 	@NotBlank
-	String DOB;
-	String personal_email_id;
+	private String DOB;
+	private String personal_email_id;
 	@NotBlank
 	@NonNull
-	String offical_email_id;
+	private String offical_email_id;
 	@NonNull
 	@NotBlank
-	String department;
+	private String department;
 	@NonNull
 	@NotBlank
-	String designation;
+	private String designation;
 	@NonNull
 	@NotBlank
-	String address;
+	private String address;
 	@NonNull
 	@NotBlank
-	String city;
+	private String city;
 	@NonNull
-	int pincode;
-	@NonNull
-	@NotBlank
-	String state;
+	private int pincode;
 	@NonNull
 	@NotBlank
-	String pancard;
+	private String state;
 	@NonNull
-    Double aadharcardno;
+	@NotBlank
+	private String pancard;
+	@NonNull
+    private Double aadharcardno;
 	@NonNull
 	@NotBlank
 	@Column(name = "user_name")
-	String userName;
+	private String userName;
 	@NonNull
 	@NotBlank
-	String password;
+	private String password;
 	@NonNull
 	@NotBlank
-	String industry;
+	private String industry;
+	private Date createdDate;
+	private Date updatedDate;
+	private LocalDateTime joiningDate;
 
 }

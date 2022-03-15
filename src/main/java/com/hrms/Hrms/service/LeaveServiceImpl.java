@@ -1,11 +1,19 @@
 package com.hrms.Hrms.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.*;
 import java.util.stream.IntStream;
 
+import com.hrms.Hrms.Dto.LeaveCount;
+import com.hrms.Hrms.Enum.LeaveStatus;
+import com.hrms.Hrms.Enum.LeaveType;
+import com.hrms.Hrms.model.Leave;
+import com.hrms.Hrms.model.LeavePolicy;
+import com.hrms.Hrms.model.Registration;
+import com.hrms.Hrms.repository.LeavePolicyRepository;
+import com.hrms.Hrms.repository.LoginRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,70 +22,71 @@ import com.hrms.Hrms.model.Admin;
 import com.hrms.Hrms.repository.AdminRepository;
 import com.hrms.Hrms.repository.LeaveRepository;
 
-@Component("leaves")
+@Component("leaves")@Slf4j
 public class LeaveServiceImpl implements LeaveService {
 
 	@Autowired
-	AdminRepository admin;
+	private LeavePolicyRepository leavePolicyRep;
 	@Autowired
-	LeaveRepository leave;
+	private LeaveRepository leave;
+	@Autowired
+	private LoginRepository loginRepository;
 	
+
+
 	@Override
-	public Admin leaveploicy(String company) {
-		// TODO Auto-generated method stub
-		try{
-			
-			Admin adminpolicy = admin.getleavePolicy(company);
-			
-			return adminpolicy;
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return null;
+	public LeaveCount leavesCount(Integer empId, String industry) {
+		LeaveCount leaveCount = new LeaveCount();
+		List<LeavePolicy> leavePolicy=  leavePolicyRep.findByIndustry(industry);
+		List<Leave> leaves =  leave.findByEmpCodeAndCompCode(empId,industry);
+		Optional<Registration> registration = loginRepository.findById(empId);
+		if(leavePolicy !=null && leavePolicy.size()!=0)
+		 {
+				LocalDateTime currentDate = LocalDateTime.now();
+				int month  = currentDate.getMonth().getValue();
+				int year   = currentDate.getYear();
+				float planPerMonth = leavePolicy.get(0).getPaid_leave()/12;
+				float casPerMonth  = leavePolicy.get(0).getCasual_leave()/12;
+				log.info(planPerMonth  +" : "+ casPerMonth);
+				if(registration.isPresent())
+				{
+					LocalDateTime joiningDate = registration.get().getJoiningDate();
+					int joiningYear = joiningDate.getYear();
+					int years = joiningYear - year;
+					leaveCount.setCasualLeave((month-joiningDate.getMonth().getValue())*casPerMonth+casPerMonth-leave.countByEmpCodeAndCompCodeAndType(empId, industry, LeaveType.casual));
+					leaveCount.setApprovedLeave(leave.countByEmpCodeAndCompCodeAndStatus(empId, industry, LeaveStatus.approved));
+					leaveCount.setUnapprovedLeave(leave.countByEmpCodeAndCompCodeAndStatus(empId, industry, LeaveStatus.unapproved));
+					leaveCount.setAppliedLeave(leave.countByEmpCodeAndCompCodeAndStatus(empId, industry, LeaveStatus.applied));
+					if(years==0)
+					{
+						leaveCount.setPlannedLeave((month-joiningDate.getMonth().getValue())*planPerMonth+planPerMonth-leave.countByEmpCodeAndCompCodeAndType(empId, industry, LeaveType.planned));
+					}
+					else
+					{
+						//need to add carryforward leaves as well
+						leaveCount.setPlannedLeave((month-joiningDate.getMonth().getValue())*planPerMonth+planPerMonth);
+					}
+				}
 		}
-		
-		
-		
+	return leaveCount;
+	}
+
+
+
+	@Override
+	public List<Leave> findByEmpCodeAndIndustry(Integer empCode, String industry) {
+		return leave.findByEmpCodeAndCompCode(empCode, industry);
 	}
 
 	@Override
-	public HashMap<Object, Object> levesCount(Integer empId, String industry) {
-		// TODO Auto-generated method stub
-		try{
-			
-			
-			Object[] count =  leave.leavesCount(empId, industry);
-			Object[] value  = new ObjectMapper().writeValueAsString(count).replace("[","").replace("]","").replaceAll("\"", "").split(",");
-			
-			
-			HashMap<Object, Object> map = new HashMap<>();
-			if(count.length!=0)
-			{
-			map = toMap(value);
-			}
-			else
-			{
-			map.put("leaves", "0");
-			}
-			return map;
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			
-			HashMap<Object,Object>  count = new HashMap<>();
-			count.put("message", e.getMessage());
-			return count;
-		}
-		
-		
+	public List<Leave> saveAll(List<Leave> model) {
+		return leave.saveAll(model);
 	}
-	
-	public   HashMap<Object, Object> toMap(Object... entries) {
-	    if(entries.length % 2 == 1)
-	        throw new IllegalArgumentException("Invalid entries");
-	    return (HashMap<Object, Object>)IntStream.range(0, entries.length/2).map(i -> i*2)
-	        .collect(HashMap::new, (m,i)->m.put(entries[i], entries[i+1]), Map::putAll);
+
+	@Override
+	public Leave save(Leave model) {
+		return save(model);
 	}
-	
+
 
 }

@@ -12,11 +12,13 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="otp")
-@Data
+@Data@NoArgsConstructor@AllArgsConstructor
 public class Otp {
 
 	@Id
