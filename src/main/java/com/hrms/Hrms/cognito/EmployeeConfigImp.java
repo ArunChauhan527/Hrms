@@ -112,7 +112,6 @@ public class EmployeeConfigImp implements EmployeeConfig {
 		@SuppressWarnings("deprecation")
 		AWSCognitoIdentityProviderClient client = new  AWSCognitoIdentityProviderClient(basicawsCreds).withRegion(Regions.AP_SOUTH_1);
 		Map<String,Object> param = new ObjectMapper().readValue(request,HashMap.class);
-		String result ="";
 		try{
 			
 			AdminInitiateAuthRequest adminInitiateAuthRequest = new AdminInitiateAuthRequest()

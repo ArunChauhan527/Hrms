@@ -1,10 +1,8 @@
 package com.hrms.Hrms.service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.hrms.Hrms.Dto.LeaveCount;
-import com.hrms.Hrms.model.Admin;
 import com.hrms.Hrms.model.Leave;
 
 public interface LeaveService {

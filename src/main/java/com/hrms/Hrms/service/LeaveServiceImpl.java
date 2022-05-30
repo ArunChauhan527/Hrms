@@ -1,9 +1,11 @@
 package com.hrms.Hrms.service;
 
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.*;
-import java.util.stream.IntStream;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.hrms.Hrms.Dto.LeaveCount;
 import com.hrms.Hrms.Enum.LeaveStatus;
@@ -12,15 +14,10 @@ import com.hrms.Hrms.model.Leave;
 import com.hrms.Hrms.model.LeavePolicy;
 import com.hrms.Hrms.model.Registration;
 import com.hrms.Hrms.repository.LeavePolicyRepository;
-import com.hrms.Hrms.repository.LoginRepository;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hrms.Hrms.model.Admin;
-import com.hrms.Hrms.repository.AdminRepository;
 import com.hrms.Hrms.repository.LeaveRepository;
+import com.hrms.Hrms.repository.LoginRepository;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Component("leaves")@Slf4j
 public class LeaveServiceImpl implements LeaveService {
@@ -34,6 +31,7 @@ public class LeaveServiceImpl implements LeaveService {
 	
 
 
+	@SuppressWarnings("unused")
 	@Override
 	public LeaveCount leavesCount(Integer empId, String industry) {
 		LeaveCount leaveCount = new LeaveCount();

@@ -21,14 +21,15 @@ public class Admin {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	int sno;
-	String role;
-	String access_module;
-	String created_by;
-	String updated_by;
-	Date createdat;
-	Date updatedat;
-	String company;
-	String industry;
+	private int sno;
+	private String role;
+	private String access_module;
+	private String accessApproval;
+	private  String created_by;
+	private String updated_by;
+	private Date createdat;
+	private Date updatedat;
+	private String company;
+	private String industry;
 	
 }

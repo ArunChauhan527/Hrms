@@ -38,6 +38,7 @@ public class demo {
 		
 		return flag;
 	}
+	@SuppressWarnings("unused")
 	public static void main(String[] args) throws ParseException {
 		List<Set<String>> dictionary = new ArrayList<>();
 		Set<String> d1 = new HashSet<String>();

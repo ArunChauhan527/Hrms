@@ -1,8 +1,9 @@
 package com.hrms.Hrms.Dto;
 
 import lombok.Data;
+import lombok.ToString;
 
-@Data
+@Data@ToString
 public class LeaveCount {
 
     private double plannedLeave;

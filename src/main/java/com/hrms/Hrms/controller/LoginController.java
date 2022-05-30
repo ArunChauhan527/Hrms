@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,8 +26,10 @@ import com.hrms.Hrms.model.Registration;
 import com.hrms.Hrms.service.EmailServiceImpl;
 import com.hrms.Hrms.service.LoginService;
 
-@CrossOrigin(origins = "*")
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
+@Slf4j
 public class LoginController {
 
 	@Autowired
@@ -201,7 +202,7 @@ public class LoginController {
 	
 	@PostMapping("/getToken")
 	public ResponseEntity<JwtResponse> getLogin(@RequestBody JwtRequest authenticationRequest) throws Exception {
-	
+	     log.info("information of login");
 		jwtAuth.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		final UserDetails userDetails = jwtInMemoryUserDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());

@@ -69,5 +69,7 @@ public class Registration {
 	private Date createdDate;
 	private Date updatedDate;
 	private LocalDateTime joiningDate;
+	private String reportingManager;
+	private String roleId;
 
 }

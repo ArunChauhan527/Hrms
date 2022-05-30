@@ -20,14 +20,14 @@ public class TestController {
 	EmailServiceImpl email;
 	
 	@GetMapping("/FirstApp")
-	public ResponseEntity FirstOne()
+	public ResponseEntity<?> FirstOne()
 	{
 		
 		return ResponseEntity.status(HttpStatus.OK).body("hello");
 	}
 	
 	@PostMapping("/testHash")
-	public ResponseEntity testHash()
+	public ResponseEntity<?> testHash()
 	{
 		
 	List<HashMap<String,Object>> map = new ArrayList<>();

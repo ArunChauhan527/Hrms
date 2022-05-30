@@ -4,17 +4,28 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.hrms.Hrms.model.Admin;
+import com.hrms.Hrms.model.ClientInfo;
+import com.hrms.Hrms.model.MenuItem;
 import com.hrms.Hrms.repository.AdminRepository;
+import com.hrms.Hrms.repository.ClientInfoRepository;
+import com.hrms.Hrms.repository.MenuItemRepository;
 
 @Service
 public class AdminServiceImpl  implements AdminService{
 
 	
 	@Autowired
-	AdminRepository adminRep;
+	private AdminRepository adminRep;
+	
+	@Autowired
+	private MenuItemRepository menuRep;
+	
+	@Autowired
+	private ClientInfoRepository clientInfoRepo;
 	
 	@Override
 	public Admin save(Admin admin) {
@@ -47,6 +58,21 @@ public class AdminServiceImpl  implements AdminService{
 	@Override
 	public List<Admin> findByRoleAndIndustry(String role, String industry) {
 		return adminRep.findByRoleAndIndustry(role, industry);
+	}
+
+	@Override
+	public List<MenuItem> save(List<MenuItem> menuList) {
+		return menuRep.saveAll(menuList);
+	}
+
+	@Override
+	public List<MenuItem> findAll() {
+		return menuRep.findAll(Sort.by("sno"));
+	}
+
+	@Override
+	public ClientInfo save(ClientInfo clientInfo) {
+		return clientInfoRepo.save(clientInfo);
 	}
 
 	

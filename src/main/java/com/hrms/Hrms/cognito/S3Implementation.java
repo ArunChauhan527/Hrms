@@ -89,7 +89,8 @@ public class S3Implementation implements S3Storage {
 		return "sucess";
 	}
 	
-	 private static void displayTextInputStream(InputStream input) throws IOException {
+	 @SuppressWarnings("unused")
+	private static void displayTextInputStream(InputStream input) throws IOException {
 	        // Read the text input stream one line at a time and display each line.
 	        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 	        String line = null;

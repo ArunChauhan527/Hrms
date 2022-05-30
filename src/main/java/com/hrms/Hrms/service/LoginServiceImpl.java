@@ -15,7 +15,10 @@ import com.hrms.Hrms.model.Registration;
 import com.hrms.Hrms.repository.LoginRepository;
 import com.hrms.Hrms.repository.OtpRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service(value="login")
+@Slf4j
 public class LoginServiceImpl  implements LoginService, UserDetailsService{
 
 	@Autowired
@@ -33,8 +36,7 @@ public class LoginServiceImpl  implements LoginService, UserDetailsService{
 			 
 		}
 		catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			log.error("error while login {}",e.getMessage());
 		}
 		
 		return res;
@@ -48,7 +50,7 @@ public class LoginServiceImpl  implements LoginService, UserDetailsService{
 			loginRepository.save(reg);
 			return "success";
 		}catch (Exception e) {
-			e.printStackTrace();
+			log.error("error while registering {}", e.getMessage());
              return e.getMessage();
 		}
 		
@@ -56,14 +58,13 @@ public class LoginServiceImpl  implements LoginService, UserDetailsService{
 
 	@Override
 	public String genrateOtp(Otp otp) {
-		// TODO Auto-generated method stub
 		try{
            otprepository.save(otp);
            return "success";
 			
 		}
 		catch (Exception e) {
-			// TODO: handle exception
+			log.error("error while genrateOtp {}",e.getMessage());
 			return "error";
 		}
 		
@@ -71,7 +72,6 @@ public class LoginServiceImpl  implements LoginService, UserDetailsService{
 
 	@Override
 	public String changePassword(HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
 		
 		try{
 			String password = (String) map.get("password");
@@ -82,8 +82,7 @@ public class LoginServiceImpl  implements LoginService, UserDetailsService{
 			otprepository.changePassword(emailid,otp);
 			return "success";
 		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			log.error("error while changePassword {}", e.getMessage());
 			return "error";
 		}
 		
@@ -93,8 +92,10 @@ public class LoginServiceImpl  implements LoginService, UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Registration users  = loginRepository.findByUserName(username);
+		
 		if(users!=null)
 		{
+			log.info("user is avialable {}", users.getUserName());
 			return new User(users.getUserName(), users.getPassword(), new ArrayList<>());
 		}
 		else

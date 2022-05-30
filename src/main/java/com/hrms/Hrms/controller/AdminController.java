@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hrms.Hrms.Dto.ResponseDto;
 import com.hrms.Hrms.model.Admin;
+import com.hrms.Hrms.model.ClientInfo;
+import com.hrms.Hrms.model.MenuItem;
 import com.hrms.Hrms.service.AdminService;
 
 @RestController
@@ -21,7 +23,9 @@ public class AdminController {
 
 	
 	@Autowired
-	AdminService adminService;
+	private AdminService adminService;
+	
+	
 	
 	
 	@PostMapping("save")
@@ -50,5 +54,21 @@ public class AdminController {
 		return ResponseEntity.ok(adminService.findByRoleAndIndustry(role, industry));
 	}
 	
+	@PostMapping("saveMenu")
+	public ResponseEntity<List<MenuItem>> saveMenu(@RequestBody List<MenuItem> menuList)
+	{
+		return ResponseEntity.status(HttpStatus.CREATED).body(adminService.save(menuList));
+	}
+	
+	@GetMapping("findMenu")
+	public ResponseEntity<List<MenuItem>> findMenu()
+	{
+	 return ResponseEntity.status(HttpStatus.OK).body(adminService.findAll());	
+	}
+	
+	@PostMapping("saveClientInfo")
+	public ResponseEntity<ClientInfo> saveClientInfo(@RequestBody ClientInfo clientInfo){
+		return ResponseEntity.status(HttpStatus.CREATED).body(adminService.save(clientInfo));
+	}
 	
 }
