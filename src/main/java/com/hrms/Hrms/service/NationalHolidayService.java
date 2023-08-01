@@ -8,9 +8,22 @@ import com.hrms.Hrms.model.NationalHoliday;
 
 public interface NationalHolidayService {
 
+	/**
+	 * @param model
+	 * @return
+	 */
 	List<NationalHoliday> saveAll(List<NationalHoliday> model);
 
+	/**
+	 * @param industry
+	 * @return
+	 */
 	List<NationalHoliday> findByIndustry(String industry);
 	
-	List<NationalHoliday> importExcel(MultipartFile file, String industry, String company);
+	/**
+	 * @param file
+	 * @param industry
+	 * @return
+	 */
+	List<NationalHoliday> importExcel(MultipartFile file, String industry);
 }

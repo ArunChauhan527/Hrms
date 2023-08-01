@@ -34,7 +34,7 @@ public class NationalHolidayServiceImpl implements NationalHolidayService{
 	}
 
 	@Override
-	public List<NationalHoliday> importExcel(MultipartFile file, String industry, String company) {
+	public List<NationalHoliday> importExcel(MultipartFile file, String industry) {
 		List<NationalHoliday> response  = new ArrayList<NationalHoliday>();
 		Workbook workBook = null;
 		try {
@@ -56,7 +56,6 @@ public class NationalHolidayServiceImpl implements NationalHolidayService{
 					}
 					model.setRegion(row.getCell(2).toString());
 					model.setDepartment(row.getCell(3).toString());
-					model.setCompany(company);
 					model.setIndustry(industry);
 					response.add(model);
 				}

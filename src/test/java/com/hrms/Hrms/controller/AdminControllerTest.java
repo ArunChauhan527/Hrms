@@ -11,31 +11,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hrms.Hrms.model.Admin;
 import com.hrms.Hrms.service.AdminService;
+import com.hrms.Hrms.service.LoginService;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(AdminController.class)
+@ActiveProfiles("test")
+@WebMvcTest(value =  AdminController.class)
 public class AdminControllerTest {
 
 	@MockBean
 	private AdminService adminService;
 	
+	@MockBean
+	private LoginService loginService;
+	
 	@Autowired
 	MockMvc mockMvc;
 	
+	
+	
 	@Test
+	//@WithMockUser
 	void saveAdmin() throws Exception {
 		
 		Admin admin = spy(Admin.class);
 		when(adminService.save(admin)).thenReturn(admin);
 		ObjectMapper  obj  = new ObjectMapper();
 		String json = obj.writeValueAsString(admin);
-		this.mockMvc.perform(post("/save").content(json).contentType(MediaType.APPLICATION_JSON)).andExpect(status().is(201));
+		this.mockMvc.perform(post("/save")
+                .accept(MediaType.APPLICATION_JSON).content(json).contentType(MediaType.APPLICATION_JSON)).andExpect(status().is(201));
 	}
 	
 }

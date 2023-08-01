@@ -90,6 +90,16 @@ public class demo {
 			System.out.println("error");
 		}
 		
+		
+		long startDate =  new Date().getTime();
+		try {
+			Thread.sleep(1000L);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		long endDate   = new Date().getTime();
+		System.out.println("time : "+(endDate-startDate)/(60*1000));
 	}
 	
 }

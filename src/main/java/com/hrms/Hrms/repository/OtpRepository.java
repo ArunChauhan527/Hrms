@@ -17,4 +17,6 @@ public interface OtpRepository extends JpaRepository<Otp, Integer> {
 	 @Modifying
 	@Query("Update  Otp set status='checked' where emailid=:emailid and otp=:otp")
 	void changePassword(@Param("emailid")String emailid,@Param("otp")String otp);
+	 
+	 Otp findTop1ByOtpAndEmailid(String otp, String emailId);
 }

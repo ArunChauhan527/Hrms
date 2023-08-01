@@ -1,7 +1,8 @@
 package com.hrms.Hrms.Enum;
 
 public enum LeaveDuration {
-  HallDay,
+  FIRSTHALF,
+  SECONDHALF,
   FullDay
 
 }

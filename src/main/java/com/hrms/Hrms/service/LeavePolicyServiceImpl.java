@@ -1,7 +1,5 @@
 package com.hrms.Hrms.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +20,7 @@ public class LeavePolicyServiceImpl implements LeavePolicyService	 {
 	}
 
 	@Override
-	public List<LeavePolicy> findByIndustry(String industry) {
+	public LeavePolicy findByIndustry(String industry) {
 		return leavePolicyRep.findByIndustry(industry);
 	}
 

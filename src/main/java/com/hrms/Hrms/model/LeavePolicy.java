@@ -24,7 +24,6 @@ public class LeavePolicy {
 	String updated_by;
 	Date createdat;
 	Date updatedat;
-	String company;
 	float paid_leave;
 	float casual_leave; 
 	String casual_carry_fd;

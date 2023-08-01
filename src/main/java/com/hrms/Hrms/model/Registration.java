@@ -1,14 +1,20 @@
 package com.hrms.Hrms.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.NonNull;
+
+import com.hrms.Hrms.Enum.Status;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,24 +22,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
 @Entity
-@Table(name = "regestration")
+@Table(name = "registration")
 @Data@Getter@Setter@AllArgsConstructor@NoArgsConstructor
 public class Registration {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int emp_code;
+	@Column(name="emp_code")
+	private String empCode;
 	@NonNull
 	@NotBlank
 	private String DOB;
-	private String personal_email_id;
+	@Column(name = "personal_email_id")
+	private String personalEmailId;
 	@NotBlank
 	@NonNull
-	private String offical_email_id;
+	@Column(name = "offical_email_id", unique = true)
+	private String officalEmailId;
 	@NonNull
 	@NotBlank
 	private String department;
@@ -62,14 +67,19 @@ public class Registration {
 	private String userName;
 	@NonNull
 	@NotBlank
-	private String password;
-	@NonNull
-	@NotBlank
 	private String industry;
+	@CreationTimestamp
 	private Date createdDate;
+	@UpdateTimestamp
 	private Date updatedDate;
-	private LocalDateTime joiningDate;
+	private Date joiningDate;
 	private String reportingManager;
-	private String roleId;
+	private String gender;
+	private int roleId;
+	private String firstName;
+	private String lastName;
+	private boolean tmpPass;
+	@Enumerated(EnumType.STRING)
+	private Status status;
 
 }
