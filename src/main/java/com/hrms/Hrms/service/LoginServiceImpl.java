@@ -152,7 +152,7 @@ public class LoginServiceImpl  implements LoginService, UserDetailsService{
 	@PostConstruct
 	private void registerAdmin() {
 		Optional<Registration> existUser = loginRepository.findById("1");
-		if (existUser.isEmpty()) {
+		if (!existUser.isPresent()) {
 			Registration adminUser = new Registration();
 			adminUser.setEmpCode("1");
 			adminUser.setUserName("arun.chauhan");
