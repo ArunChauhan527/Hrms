@@ -15,7 +15,6 @@ import com.hrms.Hrms.model.Registration;
 
 
 @Repository
-@Transactional
 public interface LoginRepository extends  JpaRepository<Registration, String>{
 
     Registration findByUserNameOrOfficalEmailId(@Param("userName") String userName, String offEmail);

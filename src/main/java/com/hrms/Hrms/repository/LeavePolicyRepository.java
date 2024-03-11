@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hrms.Hrms.model.LeavePolicy;
 
-@Repository@Transactional
+@Repository
 public interface LeavePolicyRepository extends JpaRepository<LeavePolicy, Integer>{
 
 	

@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hrms.Hrms.model.NationalHoliday;
 
 @Repository
-@Transactional
 public interface NationalholidayRepository extends JpaRepository<NationalHoliday, Integer> {
 
 	List<NationalHoliday> findByIndustryOrderByOccuredDate(String industry);

@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import com.hrms.Hrms.model.LeavePolicy;
 import com.hrms.Hrms.repository.LeavePolicyRepository;
 
+import javax.transaction.Transactional;
 
-@Service
+
+@Service@Transactional
 public class LeavePolicyServiceImpl implements LeavePolicyService	 {
 
 	

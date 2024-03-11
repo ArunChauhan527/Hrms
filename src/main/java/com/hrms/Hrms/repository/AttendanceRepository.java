@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import com.hrms.Hrms.model.Attendance;
 
 @Repository
-@Transactional
 public interface AttendanceRepository extends JpaRepository<Attendance, String>{
 
 	List<Attendance> findByEmpCodeAndCreatedAtBetweenOrderByPunchIn(String empCode, Date startDate, Date endDate);

@@ -12,7 +12,7 @@ import com.hrms.Hrms.Enum.LeaveStatus;
 import com.hrms.Hrms.Enum.LeaveType;
 import com.hrms.Hrms.model.Leave;
 
-@Repository@Transactional
+@Repository
 public interface LeaveRepository extends JpaRepository<Leave, Integer> {
 
 	@Query(value="Select l.type as type , Count(l.type) as count from leaves as l where l.emp_code=?1 and l.industry=?2 group by l.type",nativeQuery=true)

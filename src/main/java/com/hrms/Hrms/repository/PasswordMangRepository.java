@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.hrms.Hrms.model.PasswordMang;
 
-@Transactional
 @Repository
 public interface PasswordMangRepository extends JpaRepository<PasswordMang, Integer> {
 

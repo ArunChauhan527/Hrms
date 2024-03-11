@@ -17,7 +17,9 @@ import com.hrms.Hrms.repository.NationalholidayRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Service@Slf4j
+import javax.transaction.Transactional;
+
+@Service@Slf4j@Transactional
 public class NationalHolidayServiceImpl implements NationalHolidayService{
 
 	@Autowired

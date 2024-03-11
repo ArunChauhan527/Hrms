@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,7 +29,7 @@ import com.hrms.Hrms.repository.ClientInfoRepository;
 import com.hrms.Hrms.repository.LoginRepository;
 import com.hrms.Hrms.repository.MenuItemRepository;
 
-@Service
+@Service@Transactional
 public class AdminServiceImpl  implements AdminService{
 
 	

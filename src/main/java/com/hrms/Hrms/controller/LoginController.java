@@ -101,7 +101,7 @@ public class LoginController {
 	
 	
 	
-	@PostMapping("/getToken")
+	@PostMapping("api/auth/getToken")
 	public ResponseEntity<JwtResponse> getLogin(@RequestBody JwtRequest authenticationRequest) throws Exception {
 	     log.info("information of login");
 		jwtAuth.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
@@ -163,7 +163,7 @@ public class LoginController {
 		return ResponseEntity.status(HttpStatus.OK).body(excelService.excelReader(file, industry));
 	}
 	
-	@PostMapping("/refreshToken")
+	@PostMapping("api/auth/refreshToken")
 	public ResponseEntity<JwtResponse> refreshToken(@RequestBody TokenDto token) throws CannotRefreshToken
 	{
 		String token1  = jwtTokenUtil.refreshedToken(token.getRefreshToken());

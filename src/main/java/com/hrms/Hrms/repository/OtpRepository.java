@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hrms.Hrms.model.Otp;
 
 @Repository
-@Transactional
 public interface OtpRepository extends JpaRepository<Otp, Integer> {
 	
 	 @Modifying

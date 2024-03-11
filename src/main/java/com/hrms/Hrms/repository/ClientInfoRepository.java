@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hrms.Hrms.model.ClientInfo;
 
-@Repository@Transactional
+@Repository
 public interface ClientInfoRepository  extends JpaRepository<ClientInfo, Integer>{
 	
 

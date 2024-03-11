@@ -22,7 +22,9 @@ import com.hrms.Hrms.repository.LoginRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Component("leaves")@Slf4j
+import javax.transaction.Transactional;
+
+@Component("leaves")@Slf4j@Transactional
 public class LeaveServiceImpl implements LeaveService {
 
 

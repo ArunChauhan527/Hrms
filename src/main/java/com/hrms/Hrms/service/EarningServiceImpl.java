@@ -16,7 +16,9 @@ import com.hrms.Hrms.repository.LeaveRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Service@Slf4j
+import javax.transaction.Transactional;
+
+@Service@Slf4j@Transactional
 public class EarningServiceImpl  implements EarningService{
 
 	@Autowired

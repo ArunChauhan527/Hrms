@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import com.hrms.Hrms.model.Deductions;
 import com.hrms.Hrms.repository.DeductionRepository;
 
-@Service
+import javax.transaction.Transactional;
+
+@Service@Transactional
 public class DeductionServiceImpl implements DeductionService {
 
 	@Autowired

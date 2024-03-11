@@ -1,14 +1,14 @@
 package com.hrms.Hrms.repository;
 
-import javax.transaction.Transactional;
-
+import com.hrms.Hrms.model.Attachment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.hrms.Hrms.model.MenuItem;
+import java.util.UUID;
 
 @Repository
-public interface MenuItemRepository extends JpaRepository<MenuItem, Integer> {
+public interface AttachmentRepository extends JpaRepository<Attachment, UUID> {
 
-	
+
+
 }

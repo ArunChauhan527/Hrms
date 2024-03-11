@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hrms.Hrms.model.Admin;
 
-@Repository@Transactional
+@Repository
 public interface AdminRepository  extends JpaRepository<Admin, Integer>{
 
 	
